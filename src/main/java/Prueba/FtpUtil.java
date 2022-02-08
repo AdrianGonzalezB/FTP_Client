@@ -31,7 +31,7 @@ public class FtpUtil {
 	  * @Return devuelve con éxito, de lo contrario devuelve FALSO 
 	 */  
 	public static boolean uploadFile(String host, int puerto, String username, String password, String basePath,
-			String filePath, String filename, InputStream input) throws IOException {
+			 String filename, InputStream input) throws IOException {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();
 		try {
@@ -45,9 +45,9 @@ public class FtpUtil {
 				return result;
 			}
 			 // Cambia al directorio de carga
-			if (!ftp.changeWorkingDirectory(basePath+filePath)) {
+			if (!ftp.changeWorkingDirectory(basePath)) {
 				 // Si el directorio no tiene un directorio de creación
-				String[] dirs = filePath.split("/");
+				String[] dirs = basePath.split("/");
 				String tempPath = basePath;
 				for (String dir : dirs) {
 					if (null == dir || "".equals(dir)) continue;
@@ -132,7 +132,7 @@ public class FtpUtil {
 		return result;
 	}
  
-	 // Función principal de prueba de archivo de archivo FTP
+	/* // Función principal de prueba de archivo de archivo FTP
 	public static void main(String[] args) throws IOException {
 		try {  
 	        FileInputStream in=new FileInputStream(new File("D:\\Tomcat 5.5\\pictures\\t0176ee418172932841.jpg"));  
@@ -141,5 +141,5 @@ public class FtpUtil {
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  
 	    }  
-	}
+	}*/
 }

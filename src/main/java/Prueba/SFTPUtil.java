@@ -193,7 +193,7 @@ public class SFTPUtil {
     }  
       
          // Subir prueba de archivo
-    public static void main(String[] args) throws SftpException, IOException {  
+    /*public static void main(String[] args) throws SftpException, IOException {  
                  SFTPUtil sftp = new SFTPUtil ("Nombre de usuario", "Contraseña", "Dirección IP", 22);  
         sftp.login();  
                  File file = new File ("D: \\imagen \\ t0124dd095ceb042322.jpg");  
@@ -201,5 +201,5 @@ public class SFTPUtil {
           
                  sftp.upload("Ruta básica", "Ruta de archivo", "test_sftp.jpg", is);  
         sftp.logout();  
-    }  
+    }  */
 }
