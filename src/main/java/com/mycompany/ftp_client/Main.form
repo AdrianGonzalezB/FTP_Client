@@ -120,6 +120,12 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtServer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="192.168.48.175"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtServerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -127,6 +133,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPort">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="21"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -134,6 +143,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUser">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="serverftp"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -146,6 +158,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPasswd">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CalaPilar"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPasswdActionPerformed"/>
       </Events>

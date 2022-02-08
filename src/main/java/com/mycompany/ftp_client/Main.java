@@ -5,12 +5,15 @@
 package com.mycompany.ftp_client;
 
 import Prueba.FtpUtil;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -53,14 +56,26 @@ public class Main extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtServer.setText("192.168.48.175");
+        txtServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtServerActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Servidor");
 
+        txtPort.setText("21");
+
         jLabel2.setText("Puerto");
+
+        txtUser.setText("serverftp");
 
         jLabel3.setText("Usuario");
 
         jLabel4.setText("Contraseña");
 
+        txtPasswd.setText("CalaPilar");
         txtPasswd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswdActionPerformed(evt);
@@ -180,13 +195,22 @@ public class Main extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSelectActionPerformed
 
     private void btnSelectFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectFileActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(this);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            try {
+                FileInputStream in = new FileInputStream(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btnSelectFileActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FtpUtil connect = new FtpUtil();
         try {
-            FileInputStream in=new FileInputStream(new File("D:\\Tomcat 5.5\\pictures\\t0176ee418172932841.jpg")); 
+            FileInputStream in = new FileInputStream(new File("D:\\Tomcat 5.5\\pictures\\t0176ee418172932841.jpg")); 
             int port =  Integer.parseInt(txtPort.getText());
             connect.uploadFile(txtServer.getText(),port, txtUser.getText(), txtPasswd.getToolTipText(), "/files", "hola.jpg", in);
         } catch (FileNotFoundException ex) {
@@ -196,6 +220,10 @@ public class Main extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtServerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtServerActionPerformed
 
     /**
      * @param args the command line arguments
