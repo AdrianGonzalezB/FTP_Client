@@ -30,7 +30,7 @@ public class FtpUtil {
 	  * @Param entrada de entrada flujo 
 	  * @Return devuelve con éxito, de lo contrario devuelve FALSO 
 	 */  
-	public static boolean uploadFile(String host, int puerto, String username, String password, String basePath,
+	public boolean uploadFile(String host, int puerto, String username, String password, String basePath,
 			 String filename, InputStream input) throws IOException {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();
