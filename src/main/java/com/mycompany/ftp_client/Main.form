@@ -70,7 +70,7 @@
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="lblFileName" pref="145" max="32767" attributes="0"/>
-                                  <Component id="lblNewName" max="32767" attributes="0"/>
+                                  <Component id="txtNewName" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnUpload" min="-2" pref="82" max="-2" attributes="0"/>
@@ -123,7 +123,7 @@
                   <Component id="btnSelectFile" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtFilePath" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnUpload" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblNewName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNewName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -207,6 +207,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFilePath">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFilePathActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scpServerFiles">
 
@@ -220,7 +223,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUploadActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="lblNewName">
+    <Component class="javax.swing.JTextField" name="txtNewName">
     </Component>
     <Component class="javax.swing.JLabel" name="lblError">
     </Component>
