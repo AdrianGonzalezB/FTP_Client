@@ -131,15 +131,5 @@ public class FtpUtil {
 		}
 		return result;
 	}
- 
-	 // Función principal de prueba de archivo de archivo FTP
-	/*public static void main(String[] args) throws IOException {
-		try {  
-	        FileInputStream in=new FileInputStream(new File("D:\\Tomcat 5.5\\pictures\\t0176ee418172932841.jpg"));  
-	         boolean flag = uploadFile ("192.168.11.128", 21, "username", "password", "/www/images", "/2017/11/19","hello.jpg", in);  
-	        System.out.println(flag);  
-	    } catch (FileNotFoundException e) {  
-	        e.printStackTrace();  
-	    }  
-	}*/
+
 }

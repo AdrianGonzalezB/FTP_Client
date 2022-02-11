@@ -30,6 +30,7 @@ public class Main extends javax.swing.JDialog {
     int port;
     String username;
     String password;
+    String fileName;
     /**
      * Creates new form Main 
      */
@@ -69,7 +70,7 @@ public class Main extends javax.swing.JDialog {
         txtNewName = new javax.swing.JTextField();
         lblError = new javax.swing.JLabel();
         lblFileName = new javax.swing.JLabel();
-        txtFilePathServer = new javax.swing.JTextField();
+        txtFilePathDownload = new javax.swing.JTextField();
         btnDownload = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -129,7 +130,7 @@ public class Main extends javax.swing.JDialog {
 
         lblFileName.setText("Nuevo nombre del fichero");
 
-        btnDownload.setText("Upload");
+        btnDownload.setText("Download");
         btnDownload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDownloadActionPerformed(evt);
@@ -171,7 +172,7 @@ public class Main extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(scpServerFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFilePathServer))
+                                .addComponent(txtFilePathDownload))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnSelectFile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,7 +210,6 @@ public class Main extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblFileName)
@@ -226,9 +226,9 @@ public class Main extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFilePathServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFilePathDownload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDownload))))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,9 +239,13 @@ public class Main extends javax.swing.JDialog {
     }//GEN-LAST:event_pwdPasswordActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+        String userFolder = System.getProperty("user.home") + "/Desktop/";
         try {
             // TODO add your handling code here:
-            connect.uploadFile(host, port, username, password, "/files", txtNewName.getText(), in);
+            fileName = txtNewName.getText();
+            in = new FileInputStream(new File(txtFilePath.getText()));
+            connect.uploadFile(host, port, username, password, "/files", fileName, in);
+            txtFilePathDownload.setText(userFolder + txtNewName.getText());
             System.out.println("Todo bien");
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -252,19 +256,16 @@ public class Main extends javax.swing.JDialog {
         JFileChooser fileChooser = new JFileChooser();
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            try {
-                in = new FileInputStream(new File(fileChooser.getSelectedFile().getAbsolutePath()));
+            
                 txtFilePath.setText(fileChooser.getSelectedFile().getAbsolutePath());
                 txtNewName.setText(fileChooser.getSelectedFile().getName());
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
         }
     }//GEN-LAST:event_btnSelectFileActionPerformed
 
     private void btnConectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectionActionPerformed
 	
-        if(txtServer.getText().length() == 0 || txtPort.getText().length() == 0 || txtUser.getText().length() == 0 || pwdPassword.getText().length() == 0){
+        if(txtServer.getText().isBlank() || txtPort.getText().isBlank() || txtUser.getText().isBlank() || pwdPassword.getText().isBlank() ){
             lblError.setText("Alguno de los campos es vacio");
         } else {
 	int reply;
@@ -288,16 +289,6 @@ public class Main extends javax.swing.JDialog {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             lblError.setText("Se ha producido un error");
         }
-			
-        /*try {
-            FileInputStream in = new FileInputStream(new File("D:\\Tomcat 5.5\\pictures\\t0176ee418172932841.jpg")); 
-            int port =  Integer.parseInt(txtPort.getText());
-            connect.uploadFile(txtServer.getText(),port, txtUser.getText(), pwdPassword.getToolTipText(), "/files", "hola.jpg", in);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         }
     }//GEN-LAST:event_btnConectionActionPerformed
 
@@ -307,6 +298,14 @@ public class Main extends javax.swing.JDialog {
 
     private void btnDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            String remotePath = "/files" ;
+            connect.downloadFile(host, port, username, password, remotePath, fileName, txtFilePathDownload.getText());
+            System.out.println("Todo bien");
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDownloadActionPerformed
 
     private void txtFilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilePathActionPerformed
@@ -371,7 +370,7 @@ public class Main extends javax.swing.JDialog {
     private javax.swing.JPasswordField pwdPassword;
     private javax.swing.JScrollPane scpServerFiles;
     private javax.swing.JTextField txtFilePath;
-    private javax.swing.JTextField txtFilePathServer;
+    private javax.swing.JTextField txtFilePathDownload;
     private javax.swing.JTextField txtNewName;
     private javax.swing.JTextField txtPort;
     private javax.swing.JTextField txtServer;

@@ -61,7 +61,7 @@
                           <Group type="102" attributes="0">
                               <Component id="scpServerFiles" min="-2" pref="287" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtFilePathServer" max="32767" attributes="0"/>
+                              <Component id="txtFilePathDownload" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnSelectFile" min="-2" pref="19" max="-2" attributes="0"/>
@@ -114,7 +114,6 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lblError" min="-2" pref="22" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblFileName" min="-2" max="-2" attributes="0"/>
@@ -133,12 +132,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtFilePathServer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFilePathDownload" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnDownload" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="63" max="32767" attributes="0"/>
+              <EmptySpace pref="81" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -232,11 +231,11 @@
         <Property name="text" type="java.lang.String" value="Nuevo nombre del fichero"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtFilePathServer">
+    <Component class="javax.swing.JTextField" name="txtFilePathDownload">
     </Component>
     <Component class="javax.swing.JButton" name="btnDownload">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Upload"/>
+        <Property name="text" type="java.lang.String" value="Download"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDownloadActionPerformed"/>
