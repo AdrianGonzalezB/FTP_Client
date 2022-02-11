@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
 /**
  *
@@ -291,7 +292,10 @@ public class Main extends javax.swing.JDialog {
                             txtNewName.setEnabled(true);
                             btnUpload.setEnabled(true);
                         }
-                        
+                        FTPFile[] files = ftp.listFiles("/files");
+                        for(FTPFile file: files){
+                            System.out.println(file);
+                        }
                       
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
