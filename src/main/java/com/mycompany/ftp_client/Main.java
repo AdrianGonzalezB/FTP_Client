@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -32,6 +34,7 @@ public class Main extends javax.swing.JDialog {
     String username;
     String password;
     String fileName;
+    JList<FTPFile> listFile = new JList<FTPFile>();
     /**
      * Creates new form Main 
      */
@@ -40,10 +43,16 @@ public class Main extends javax.swing.JDialog {
         
         //FlatCyanLightIJTheme.setup();
         initComponents();
+        scpServerFiles.setViewportView(listFile);
         btnSelectFile.setEnabled(false);
         txtFilePath.setEnabled(false);
         txtNewName.setEnabled(false);
         btnUpload.setEnabled(false);
+            listFile.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                scpServerFilesValueChanged(evt);
+            }
+        });
     }
 
     /**
@@ -73,6 +82,7 @@ public class Main extends javax.swing.JDialog {
         lblFileName = new javax.swing.JLabel();
         txtFilePathDownload = new javax.swing.JTextField();
         btnDownload = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,6 +154,13 @@ public class Main extends javax.swing.JDialog {
             }
         });
 
+        btnCargar.setText("Load Files");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +196,11 @@ public class Main extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(scpServerFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFilePathDownload))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtFilePathDownload)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnSelectFile, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,7 +255,9 @@ public class Main extends javax.swing.JDialog {
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFilePathDownload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDownload))))
+                            .addComponent(btnDownload))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCargar)))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
 
@@ -314,7 +337,7 @@ public class Main extends javax.swing.JDialog {
             String userFolder = System.getProperty("user.home") + "/Desktop/";
             // TODO add your handling code here:
             String remotePath = "/files" ;
-            connect.downloadFile(host, port, username, password, remotePath, fileName, userFolder);
+            connect.downloadFile(host, port, username, password, remotePath, txtFilePathDownload.getText(), userFolder);
             System.out.println("Todo bien");
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,6 +352,24 @@ public class Main extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFilePathDownloadActionPerformed
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        try {
+            ftp.connect (txtServer.getText(), Integer.parseInt(txtPort.getText()));
+            ftp.login(txtUser.getText(), pwdPassword.getText());
+            FTPFile[] files = ftp.listFiles("/files");
+            DefaultListModel defaultListModel = new DefaultListModel();
+            for(FTPFile fTPFile: files) {
+                defaultListModel.addElement(fTPFile);
+            }
+            listFile.setModel(defaultListModel);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    public void scpServerFilesValueChanged(javax.swing.event.ListSelectionEvent evt) {
+        txtFilePathDownload.setText(listFile.getSelectedValue().getName());
+    }
     /**
      * @param args the command line arguments
      */
@@ -374,6 +415,7 @@ public class Main extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnConection;
     private javax.swing.JButton btnDownload;
     private javax.swing.JButton btnSelectFile;
