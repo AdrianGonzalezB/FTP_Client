@@ -94,7 +94,7 @@ public class FtpUtil {
 	  * @Param localpath descargas a caminos locales 
 	 * @return 
 	 */  
-	public static boolean downloadFile(String host, int port, String username, String password, String remotePath,
+	public boolean downloadFile(String host, int port, String username, String password, String remotePath,
 			String fileName, String localPath) throws IOException {
 		boolean result = false;
 		FTPClient ftp = new FTPClient();

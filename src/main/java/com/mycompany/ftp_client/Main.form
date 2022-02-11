@@ -232,6 +232,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFilePathDownload">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFilePathDownloadActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDownload">
       <Properties>

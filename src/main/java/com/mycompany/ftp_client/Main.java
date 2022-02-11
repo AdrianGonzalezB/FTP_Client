@@ -37,7 +37,7 @@ public class Main extends javax.swing.JDialog {
     public Main(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         
-        FlatCyanLightIJTheme.setup();
+        //FlatCyanLightIJTheme.setup();
         initComponents();
         btnSelectFile.setEnabled(false);
         txtFilePath.setEnabled(false);
@@ -129,6 +129,12 @@ public class Main extends javax.swing.JDialog {
         });
 
         lblFileName.setText("Nuevo nombre del fichero");
+
+        txtFilePathDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFilePathDownloadActionPerformed(evt);
+            }
+        });
 
         btnDownload.setText("Download");
         btnDownload.addActionListener(new java.awt.event.ActionListener() {
@@ -239,13 +245,13 @@ public class Main extends javax.swing.JDialog {
     }//GEN-LAST:event_pwdPasswordActionPerformed
 
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
-        String userFolder = System.getProperty("user.home") + "/Desktop/";
+        
         try {
             // TODO add your handling code here:
             fileName = txtNewName.getText();
             in = new FileInputStream(new File(txtFilePath.getText()));
             connect.uploadFile(host, port, username, password, "/files", fileName, in);
-            txtFilePathDownload.setText(userFolder + txtNewName.getText());
+            txtFilePathDownload.setText(txtNewName.getText());
             System.out.println("Todo bien");
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -285,6 +291,8 @@ public class Main extends javax.swing.JDialog {
                             txtNewName.setEnabled(true);
                             btnUpload.setEnabled(true);
                         }
+                        
+                      
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             lblError.setText("Se ha producido un error");
@@ -299,9 +307,10 @@ public class Main extends javax.swing.JDialog {
     private void btnDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadActionPerformed
         // TODO add your handling code here:
         try {
+            String userFolder = System.getProperty("user.home") + "/Desktop/";
             // TODO add your handling code here:
             String remotePath = "/files" ;
-            connect.downloadFile(host, port, username, password, remotePath, fileName, txtFilePathDownload.getText());
+            connect.downloadFile(host, port, username, password, remotePath, fileName, userFolder);
             System.out.println("Todo bien");
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,6 +320,10 @@ public class Main extends javax.swing.JDialog {
     private void txtFilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilePathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFilePathActionPerformed
+
+    private void txtFilePathDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFilePathDownloadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFilePathDownloadActionPerformed
 
     /**
      * @param args the command line arguments
