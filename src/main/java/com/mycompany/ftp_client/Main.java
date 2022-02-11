@@ -76,7 +76,7 @@ public class Main extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtServer.setText("192.168.48.175");
+        txtServer.setText("192.168.48.186");
         txtServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtServerActionPerformed(evt);
@@ -314,7 +314,7 @@ public class Main extends javax.swing.JDialog {
             String userFolder = System.getProperty("user.home") + "/Desktop/";
             // TODO add your handling code here:
             String remotePath = "/files" ;
-            connect.downloadFile(host, port, username, password, remotePath, fileName, userFolder);
+            connect.downloadFile(host, port, username, password, remotePath, txtFilePathDownload.getText(), userFolder);
             System.out.println("Todo bien");
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
