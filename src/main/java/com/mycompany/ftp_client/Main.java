@@ -86,7 +86,7 @@ public class Main extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtServer.setText("192.168.48.175");
+        txtServer.setText("192.168.48.186");
         txtServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtServerActionPerformed(evt);
